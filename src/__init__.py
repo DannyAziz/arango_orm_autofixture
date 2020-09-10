@@ -87,12 +87,12 @@ class ArangoORMAutoFixture():
     def fake_email(self):
         return fake.email()
 
-    def generate_fake_object(self, object):
+    def generate_fake_object(self, object, key=1):
         fields = object.schema().fields
         data = {}
         for field_key in fields.keys():
             if field_key == '_key':
-                data['_key'] = f'{self.fake_integer()}'
+                data['_key'] = str(key)
                 continue
             field = fields[field_key]
             if (not field.required and field.allow_none) and fake.boolean(fake.random_int(0, 100)):
@@ -104,4 +104,4 @@ class ArangoORMAutoFixture():
         return object(**data)
 
     def generate(self, object, n=1):
-        return [self.generate_fake_object(object) for x in range(n)]
+        return [self.generate_fake_object(object, x) for x in range(n)]
