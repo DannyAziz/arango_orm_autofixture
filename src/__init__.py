@@ -103,3 +103,5 @@ class ArangoORMAutoFixture():
             data[field_key] = self.field_to_faker[type(field)]()
         return object(**data)
 
+    def generate(self, object, n=1):
+        return [self.generate_fake_object(object) for x in range(n)]
