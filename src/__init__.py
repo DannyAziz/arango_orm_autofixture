@@ -92,7 +92,7 @@ class ArangoORMAutoFixture():
         data = {}
         for field_key in fields.keys():
             if field_key == '_key':
-                data['_key'] = f'{object.__collection__}/{self.fake_integer()}'
+                data['_key'] = f'{self.fake_integer()}'
                 continue
             field = fields[field_key]
             if (not field.required and field.allow_none) and fake.boolean(fake.random_int(0, 100)):
