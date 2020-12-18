@@ -1,2 +1,3 @@
 Faker==4.1.2
 marshmallow==3.7.1
+arango_orm==0.62
