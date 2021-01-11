@@ -28,7 +28,8 @@ class ArangoORMAutoFixture():
             TimeDelta: self.fake_timedelta,
             Url: self.fake_url,
             Email: self.fake_email,
-            List: self.fake_list
+            List: self.fake_list,
+            Dict: self.fake_dict,
         }
 
         validators = {
@@ -98,6 +99,18 @@ class ArangoORMAutoFixture():
         list_size = random.randint(1, MAX_LIST_SIZE)
         l = [fake_func()]
         return l
+
+    def fake_dict(self, *args, **kwargs):
+        MAX_KEYS = 10
+        num_keys = random.randint(1, MAX_KEYS)
+        mapping_items = self.field_to_faker.items()
+        d = {}
+        for _ in range(num_keys):
+            key = fake.pystr()
+            value = fake.pystr()
+            d[key] = value
+
+        return d
 
     def generate_fake_object(self, object, key=1):
         fields = object.schema().fields
