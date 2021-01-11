@@ -1,7 +1,7 @@
 import unittest
 
 from arango_orm import Collection, Relation
-from arango_orm.fields import String, DateTime, Integer, Url, Boolean, List, \
+from arango_orm.fields import String, DateTime, Integer, Url, Boolean, List, Dict, \
                               Float, Decimal, Float, Date, TimeDelta, Email, Number, UUID
 
 from src import ArangoORMAutoFixture
@@ -23,6 +23,7 @@ class TestAutoFixture(unittest.TestCase):
             email = Email()
             number = Number()
             uuid = UUID()
+            d = Dict()
 
         
         models = ArangoORMAutoFixture().generate(MyModel)
@@ -39,6 +40,7 @@ class TestAutoFixture(unittest.TestCase):
             self.assertIsNotNone(m.timedelta)
             self.assertIsNotNone(m.email)
             self.assertIsNotNone(m.uuid)
+            self.assertIsNotNone(m.d)
 
     def test_handles_none_gracefully(self):
         class MyModel(Collection):
@@ -56,6 +58,7 @@ class TestAutoFixture(unittest.TestCase):
             email = Email(allow_none=True)
             number = Number(allow_none=True)
             uuid = UUID(allow_none=True)
+            d = Dict(allow_none=True)
 
         
         models = ArangoORMAutoFixture().generate(MyModel)
@@ -72,3 +75,4 @@ class TestAutoFixture(unittest.TestCase):
             self.assertTrue(hasattr(m, 'timedelta'))
             self.assertTrue(hasattr(m, 'email'))
             self.assertTrue(hasattr(m, 'uuid'))
+            self.assertTrue(hasattr(m, 'd'))
